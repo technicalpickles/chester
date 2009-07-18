@@ -1,2 +1,7 @@
 
 = link_to "New sheet", new_sheet_path
+
+- if @sheets.present?
+  %ul
+    - @sheets.each do |sheet|
+      %li= link_to sheet.title, sheet
