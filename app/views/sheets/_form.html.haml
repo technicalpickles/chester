@@ -1,0 +1,9 @@
+- form_for sheet do |sheet_form|
+  %dl
+    %dt= sheet_form.label :title
+    %dd= sheet_form.text_field :title
+    %dt= sheet_form.label :body
+    %dd= sheet_form.text_area :body
+
+  %p
+    = submit_tag "Save"
