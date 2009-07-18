@@ -1,0 +1,14 @@
+!!! Transitional
+%html
+  %head
+    = stylesheet_link_tag 'blueprint/screen', :media => 'screen'
+    = stylesheet_link_tag 'blueprint/print', :media => 'print'
+    = "<!--[if IE]>#{stylesheet_link_tag 'blueprint/ie', :media => 'screen'}<![endif]-->"
+    
+  %body
+    .container
+      - flash.each do |key, value|
+        %div{:class => key}= value
+
+      #content
+        = yield

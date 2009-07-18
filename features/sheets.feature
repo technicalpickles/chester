@@ -8,5 +8,5 @@ Feature: cheat sheets
     And I fill in "title" with "my-awesome-sheet"
     And I fill in "body" with "1) create cheat clone 2) ... 3) PROFIT"
     And I press "Save"
-    Then I should see "my-awesome-sheet-created"
+    Then I should see "Sheet created"
     And I should see "1) create cheat clone 2) ... 3) PROFIT"
