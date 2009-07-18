@@ -1,6 +1,6 @@
-  tmp/*
-  log/*.log
-  config/database.yml
-  db/schema.rb
-  public/stylesheets/cache
-  public/javascripts/cache
+tmp/*
+log/*.log
+config/database.yml
+db/schema.rb
+public/stylesheets/cache
+public/javascripts/cache
