@@ -1,6 +1,12 @@
 
 = link_to "New sheet", new_sheet_path
 
+#updated_sheets
+  - if @recent_sheets.present?
+    %ul
+      - @recent_sheets.each do |sheet|
+        %li= link_to sheet.title, sheet
+
 - if @sheets.present?
   %ul
     - @sheets.each do |sheet|

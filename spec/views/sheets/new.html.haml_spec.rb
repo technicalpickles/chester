@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/sheets/new" do
   before do
-    assigns[:sheet] = stub_model(Sheet)
+    assigns[:sheet] = Factory.build(:sheet)
   end
 
   it "should render" do
