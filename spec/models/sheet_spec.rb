@@ -19,7 +19,7 @@ describe Sheet do
     describe "with no sheets saved" do
       before do
         Sheet.delete_all
-        @recent_sheets = Sheet.recent
+        @recent_sheets = Sheet.fifteen_recent
       end
       
       it_should_behave_like 'a chronological list of non-nil sheets'
@@ -37,7 +37,7 @@ describe Sheet do
         @very_recent_sheet = Factory(:recent_sheet, :title => 'Recent')
         @very_old_sheet = Factory(:old_sheet, :title => 'Old')
       
-        @recent_sheets = Sheet.recent
+        @recent_sheets = Sheet.fifteen_recent
       end
     
       it "should contain very recent sheet" do

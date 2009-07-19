@@ -1,10 +1,12 @@
 class Sheet < ActiveRecord::Base
+
   
-  def self.recent
-    r = all.reject { |sheet| sheet.updated_at < 3.weeks.ago }
-    newest = r.sort_by(&:updated_at).last
-    newest = [newest] + (r - [newest]).sort {|x, y| y.updated_at <=> x.updated_at}
-    newest[0..14].compact
+  named_scope :reverse_chronological, :order => 'updated_at DESC'
+  
+  named_scope :limited, lambda { |n| { :limit => n } }
+  
+  def self.fifteen_recent
+    self.reverse_chronological.limited(15).to_a
   end
   
   def inspect

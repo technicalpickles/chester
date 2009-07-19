@@ -6,7 +6,7 @@ describe SheetsController do
     
     before do
       @recent_sheets = "recent sheets"
-      stub(Sheet).recent { @recent_sheets }
+      stub(Sheet).fifteen_recent { @recent_sheets }
       
       get :index
     end
@@ -16,7 +16,7 @@ describe SheetsController do
     it { should assign_to(:recent_sheets).with(@recent_sheets) }
     
     it 'should load recently-edited sheets' do
-      Sheet.should have_received(:recent) 
+      Sheet.should have_received(:fifteen_recent) 
     end
 
 
