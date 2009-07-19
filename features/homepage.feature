@@ -1,4 +1,4 @@
-Feature: cheat sheets
+Feature: homepage
   In order to encourage others to cheat
   I want to be able to facilitate navigation to cheat sheets
   
