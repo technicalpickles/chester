@@ -1,14 +1,3 @@
-HTTP/1.1 200 OK
-Server: nginx/0.6.35
-Date: Sat, 18 Jul 2009 21:14:31 GMT
-Content-Type: text/plain
-Connection: keep-alive
-Vary: Accept-Encoding
-Content-Length: 1753
-X-Varnish: 1082075347
-Age: 0
-Via: 1.1 varnish
-
 --- 
 strftime: |-
   %a - The abbreviated weekday name (``Sun'')

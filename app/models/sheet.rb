@@ -14,4 +14,17 @@ class Sheet < ActiveRecord::Base
     title
   end
   
+  def self.import(importable)
+    thing_to_load = if importable.kind_of? String
+                      Net::HTTP.get(URI.parse("http://cheat.errtheblog.com/y/#{importable}"))
+                    else
+                      importable
+                    end
+    
+    yaml = YAML.load(thing_to_load)
+    
+    title, body = yaml.entries.first
+    Sheet.create! :title => title, :body => body
+  end
+  
 end

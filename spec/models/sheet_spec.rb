@@ -92,4 +92,50 @@ describe Sheet do
   
     
   end
+  
+  shared_examples_for 'importing a single sheet' do
+    
+    it 'should return a Sheet' do
+      @sheet.should be_kind_of(Sheet)
+    end
+  
+    it 'should import the title' do
+      @sheet.title.should == 'strftime'
+    end
+    
+    it 'should import the body' do
+      @sheet.body.should match(/Hour of the day, 12-hour clock/)
+    end
+    
+    it 'should persist the sheet' do
+      @sheet.should_not be_new_record
+    end
+    
+  end
+  
+  describe 'a YAML-imported Sheet' do
+    
+    before do
+      @strftime_file_path = File.expand_path(File.dirname(__FILE__) + '/../fixtures/y-strftime.yaml')
+    end
+    
+    describe 'from a file' do
+      before do
+        @sheet = Sheet.import File.new(@strftime_file_path)
+      end
+      
+      it_should_behave_like 'importing a single sheet'
+    end
+    
+    describe 'from cheat.errtheblog.com' do
+      before do
+        FakeWeb.register_uri('http://cheat.errtheblog.com/y/strftime', :string => File.read(@strftime_file_path))
+        @sheet = Sheet.import 'strftime'
+      end
+      
+      it_should_behave_like 'importing a single sheet'
+    end
+    
+  end
+  
 end
