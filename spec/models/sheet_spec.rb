@@ -2,6 +2,36 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Sheet do
   
+  describe 'alphabetically_by_title' do
+
+    it 'should respond to alphabetically_by_title' do
+      Sheet.should respond_to(:alphabetically_by_title)
+    end
+    
+    describe "with three randomly named sheets" do
+      before do
+        ['wtf', 'zerglings', 'zomg'].each { |title| Factory(:sheet, :title => title) }
+        @sheets = Sheet.alphabetically_by_title
+      end
+      
+      it 'should return sheets' do
+        @sheets.select {|sheet| ! sheet.kind_of?(Sheet) }.should == []
+      end
+      
+      it "should have all of the existing sheets" do
+        @sheets.size.should == Sheet.all.to_a.size
+      end
+      
+      it 'should return sheets in (ascending) alphabetical order by title' do
+        @sheets.should == @sheets.sort_by(&:title)
+      end
+      
+
+      
+    end
+    
+  end
+  
   shared_examples_for 'a chronological list of non-nil sheets' do
     
     it 'should not have any nil objects' do
