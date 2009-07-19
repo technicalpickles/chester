@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :sheets
-  map.root :controller => 'sheets'
+  map.resources :sheets, :collection => { :recent => :get }
+  map.root :controller => 'sheets', :action => 'recent'
   
   #map.with_options :controller => 'sheets', :format => 'yaml' do |sheets|
   #  map.connect '/yr/', :action => 'recent'

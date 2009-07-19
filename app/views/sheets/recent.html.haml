@@ -1,0 +1,10 @@
+
+= link_to "add new", new_sheet_path
+
+= link_to 'see all', sheets_path
+
+#updated_sheets
+  %ul
+    - @recent_sheets.each do |sheet|
+      %li= link_to sheet.title, sheet
+    

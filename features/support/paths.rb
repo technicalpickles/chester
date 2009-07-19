@@ -10,6 +10,8 @@ module NavigationHelpers
     
     when /the homepage/
       '/'
+    when /^the all sheets page$/
+      sheets_path
     
     # Add more mappings here.
     # Here is a more fancy example:
