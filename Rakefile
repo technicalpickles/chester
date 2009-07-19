@@ -11,14 +11,16 @@ require 'tasks/rails'
 
 namespace :import do
   
-  desc 'Import all Cheat Sheets in a Directory'
+  desc 'Import all cheat sheets in a Directory'
   task :from_dir => 'environment' do
     raise "No import directory specified. Please set ENV['FROM']" if ENV['FROM'].blank?
     dir = File.expand_path(ENV['FROM'])
-    Dir.glob("#{dir}/**/*.yml").each do |path|
-      s = Sheet.import File.new(path)
-      puts "Imported #{s.title} from #{path}"
-    end
+    Sheet::Importer::Directory.new(dir).import_all
+  end
+  
+  desc 'Import all cheat sheets from http://cheats.errtheblog.com'
+  task :from_www => 'environment' do
+    Sheet::Importer::ErrTheBlog.new.import_all
   end
   
 end
