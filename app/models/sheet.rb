@@ -4,7 +4,7 @@ class Sheet < ActiveRecord::Base
     r = all.reject { |sheet| sheet.updated_at < 3.weeks.ago }
     newest = r.sort_by(&:updated_at).last
     newest = [newest] + (r - [newest]).sort {|x, y| y.updated_at <=> x.updated_at}
-    newest[0..14]
+    newest[0..14].compact
   end
   
   def inspect
