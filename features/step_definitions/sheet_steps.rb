@@ -1,5 +1,10 @@
-Given /^there are more than enough sheets to fill the "([^\"]*)" sidebar$/ do |arg1|
+Given /^there are more than enough sheets to fill the "([^\"]*)" sidebar$/ do |_|
   Given "20 sheets exist"
+end
+
+Given /^no sheet exists with a title of "(.+)"$/ do |title|
+  s = Sheet.find_by_title(title)
+  s.destroy if s.present?
 end
 
 Then /^I should see "([^\"]*)" in the "([^\"]*)" sidebar$/ do |text, sidebar_name|
