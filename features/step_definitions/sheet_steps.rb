@@ -7,6 +7,10 @@ Given /^no sheet exists with a title of "(.+)"$/ do |title|
   s.destroy if s.present?
 end
 
+Given /^the sheet titled "([^\"]*)" has a body of "([^\"]*)"$/ do |title, body|
+  Sheet.find_or_create_by_title(title).update_attributes!(:body => body)
+end
+
 Then /^I should see "([^\"]*)" in the "([^\"]*)" sidebar$/ do |text, sidebar_name|
   within "##{sidebar_name.downcase.gsub(' ', '_')}" do |scope|
     scope.should contain(text)

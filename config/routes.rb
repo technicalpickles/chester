@@ -5,6 +5,6 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => 'sheets', :format => 'yaml' do |sheets|
     sheets.connect '/yr/', :action => 'recent'
     sheets.connect '/ya/', :action => 'index'
-  #  map.connect '/y/:name', :action => 'show'
+    sheets.connect '/y/:id', :action => 'show'
   end
 end

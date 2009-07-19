@@ -12,8 +12,8 @@ Feature: API
     And no sheet exists with a title of "<absent>"
     When I ask for all sheets in YAML
     Then I should get a YAML list
-    And the list of sheets should include "<exists>"
-    And the list of sheets should not include "<absent>"
+    And the list of sheets titled "All Cheat Sheets" should include "<exists>"
+    And the list of sheets titled "All Cheat Sheets" should not include "<absent>"
     
     Examples:
       | exists     | absent     |
@@ -27,12 +27,20 @@ Feature: API
     And no sheet exists with a title of "<absent>"
     When I ask for recent sheets in YAML
     Then I should get a YAML list
-    And the list of sheets should include "<recent>"
-    And the list of sheets should not include "<old>"
-    And the list of sheets should not include "<absent>"
+    And the list of sheets titled "Recent Cheat Sheets" should include "<recent>"
+    And the list of sheets titled "Recent Cheat Sheets" should not include "<old>"
+    And the list of sheets titled "Recent Cheat Sheets" should not include "<absent>"
     
     Examples:
       | recent       | old     | absent       |
       | albatross    | running | applesauce   |
       | dental floss | mice    | albatross    |
       | applesauce   | cups    | dental floss |
+      
+  Scenario: show an existing sheet
+    Given a sheet exists with a title of "brain_surgery_for_dummies"
+    And the sheet titled "brain_surgery_for_dummies" has a body of "1: cut open head. 2: ???. 3: Profit!"
+    When I ask for the sheet titled "brain_surgery_for_dummies" in YAML
+    Then I should get a YAML object titled "brain_surgery_for_dummies"
+    And the YAML object titled "brain_surgery_for_dummies" should contain "cut open head"
+    And the YAML object titled "brain_surgery_for_dummies" should contain "Profit!"

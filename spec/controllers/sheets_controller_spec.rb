@@ -70,4 +70,42 @@ describe SheetsController do
     
   end
   
+  shared_examples_for 'a sheet finder' do
+    it { should respond_with(:success) }
+    it { should assign_to(:sheet).with(@sheet) }
+  end
+  
+  describe "#show" do
+    
+    before do
+      stub(Sheet).find { nil }
+      stub(Sheet).find_by_title { nil }
+    end
+    
+    describe 'with an ID' do
+      before do
+        stub(Sheet).find { "the sheet" }
+        get :show, :id => 12345
+      end
+      
+      it_should_behave_like 'a sheet finder'
+      it 'find the Sheet by ID' do
+        Sheet.should have_received(:find).with('12345')
+      end
+    end
+    
+    describe 'with a sheet name' do
+      before do
+        stub(Sheet).find_by_title { "the sheet" }
+        get :show, :id => 'some sheet'
+      end
+      
+      it_should_behave_like 'a sheet finder'
+      it 'find the Sheet by title' do
+        Sheet.should have_received(:find_by_title).with('some sheet')
+      end
+    end
+    
+  end
+  
 end

@@ -1,1 +1,1 @@
-<%= { 'All Cheat Sheets' => @sheets }.to_yaml %>
+<%= { 'All Cheat Sheets' => @sheets.map(&:title) }.to_yaml %>
