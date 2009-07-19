@@ -27,4 +27,10 @@ class Sheet < ActiveRecord::Base
     Sheet.create! :title => title, :body => body
   end
   
+  def self.import_all
+    yaml = YAML.load(Net::HTTP.get(URI.parse('http://cheat.errtheblog.com/ya/')))
+    sheets = yaml['All Cheat Sheets']
+    sheets.map { |s| import s }
+  end
+  
 end

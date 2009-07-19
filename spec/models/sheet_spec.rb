@@ -93,6 +93,36 @@ describe Sheet do
     
   end
   
+  describe 'importing all sheets from cheats.errtheblog.com' do
+    
+    before do
+      all_sheet_titles = { 'All Cheat Sheets' => ['strftime', 'webrat'] }.to_yaml
+      FakeWeb.register_uri 'http://cheat.errtheblog.com/ya/', :string => all_sheet_titles
+      @strftime_sheet = 'the strftime sheet' 
+      @webrat_sheet = 'the webrat sheet' 
+      stub(Sheet).import('strftime') { @strftime_sheet }
+      stub(Sheet).import('webrat') { @webrat_sheet }
+      @sheets = Sheet.import_all
+    end
+    
+    it 'should import strftime' do
+      Sheet.should have_received(:import).with('strftime')
+    end
+    
+    it 'should import strftime' do
+      Sheet.should have_received(:import).with('webrat')
+    end
+    
+    it 'should have 2 sheets' do
+      @sheets.size.should == 2
+    end
+    
+    it 'should contain the strftime and webrat sheets' do
+      @sheets.should == [ @strftime_sheet, @webrat_sheet ]
+    end
+    
+  end
+  
   shared_examples_for 'importing a single sheet' do
     
     it 'should return a Sheet' do
@@ -127,7 +157,7 @@ describe Sheet do
       it_should_behave_like 'importing a single sheet'
     end
     
-    describe 'from cheat.errtheblog.com' do
+    describe 'from cheats.errtheblog.com' do
       before do
         FakeWeb.register_uri('http://cheat.errtheblog.com/y/strftime', :string => File.read(@strftime_file_path))
         @sheet = Sheet.import 'strftime'

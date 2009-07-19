@@ -1,13 +1,3 @@
-HTTP/1.1 200 OK
-Server: nginx/0.6.35
-Date: Sat, 18 Jul 2009 21:16:32 GMT
-Content-Type: text/plain
-Connection: keep-alive
-Content-Length: 197
-X-Varnish: 1082076724
-Age: 0
-Via: 1.1 varnish
-
 --- 
 Recent Cheat Sheets: 
 - firephp
