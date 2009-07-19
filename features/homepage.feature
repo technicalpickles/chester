@@ -4,8 +4,8 @@ Feature: homepage
   
   Scenario Outline: the updated-sheets sidebar
     Given there are more than enough sheets to fill the "updated sheets" sidebar
-    And the sheet titled "<recent>" was recently edited
-    And the sheet titled "<old>" was not recently edited
+    And a recent sheet exists with a title of "<recent>"
+    And an old sheet exists with a title of "<old>"
     When I go to the homepage
     Then I should see "<recent>" in the "updated sheets" sidebar
     And I should not see "<old>" in the "updated sheets" sidebar

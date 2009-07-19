@@ -13,13 +13,13 @@ Feature: cheat sheets
     And I should see "1) create cheat clone 2) ... 3) PROFIT"
 
   Scenario: viewing all sheets
-    Given a sheet titled "my-awesome-sheet" exists
+    Given a sheet exists with a title of "my-awesome-sheet"
     When I go to the homepage
     And I follow "see all"
     Then I should see "my-awesome-sheet"
 
   Scenario: editing a sheet
-    Given a sheet titled "my-awesome-sheet" exists
+    Given a sheet exists with a title of "my-awesome-sheet"
     And I am on the all sheets page
     When I follow "my-awesome-sheet"
     And I follow "Edit"
