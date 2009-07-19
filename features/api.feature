@@ -11,7 +11,7 @@ Feature: API
     Given a sheet exists with a title of "<exists>"
     And no sheet exists with a title of "<absent>"
     When I ask for all sheets in YAML
-    Then I should get a YAML list of all cheat sheets
+    Then I should get a YAML list
     And the list of sheets should include "<exists>"
     And the list of sheets should not include "<absent>"
     
@@ -20,3 +20,19 @@ Feature: API
       | tarantulas | bagels     |
       | mopping    | tarantulas |
       | bagels     | mopping    |
+      
+  Scenario Outline: list recent sheets
+    Given a recent sheet exists with a title of "<recent>"
+    And an old sheet exists with a title of "<old>"
+    And no sheet exists with a title of "<absent>"
+    When I ask for recent sheets in YAML
+    Then I should get a YAML list
+    And the list of sheets should include "<recent>"
+    And the list of sheets should not include "<old>"
+    And the list of sheets should not include "<absent>"
+    
+    Examples:
+      | recent       | old     | absent       |
+      | albatross    | running | applesauce   |
+      | dental floss | mice    | albatross    |
+      | applesauce   | cups    | dental floss |

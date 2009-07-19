@@ -5,6 +5,10 @@ class SheetsController < ResourceController::Base
   
   def recent
     @recent_sheets = Sheet.fifteen_recent
+    respond_to do |wants|
+      wants.html() { }
+      wants.yaml() { }
+    end
   end
   
   private
