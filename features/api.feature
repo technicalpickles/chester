@@ -44,3 +44,8 @@ Feature: API
     Then I should get a YAML object titled "brain_surgery_for_dummies"
     And the YAML object titled "brain_surgery_for_dummies" should contain "cut open head"
     And the YAML object titled "brain_surgery_for_dummies" should contain "Profit!"
+    
+  Scenario: create a new sheet
+    Given no sheet exists with a title of "allegory"
+    When I use the gem to create a new cheat with a title of "allegory"
+    Then I should receive a 201 Created for the "allegory" sheet

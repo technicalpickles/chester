@@ -109,4 +109,74 @@ describe SheetsController do
     
   end
   
+  describe '#create with the weird API params' do
+    
+    before do
+      @sheet = Factory(:sheet)
+      stub(@controller).compensate_for_cheat_gem_params do
+        @controller.params = { :sheet => { :title => @sheet.title, :body => @sheet.body } }
+        nil
+      end
+      post :create
+    end
+    
+    it 'compensate for weirt API params' do
+      @controller.should have_received(:compensate_for_cheat_gem_params)
+    end
+    
+  end
+  
+  describe '#create with format YAML' do
+    
+    before do
+      @sheet = Factory(:sheet)
+      stub(Sheet).new { @sheet }
+      stub(Sheet).create { @sheet }
+      stub(Sheet).create! { @sheet }
+      post :create, :format => 'yaml', :sheet => { :title => @sheet.title, :body => @sheet.body }
+    end
+    
+    it { should respond_with(201) }
+    
+    it 'should set the Location header to the newly-created sheet' do
+      @response.headers['Location'].should == sheet_url(@sheet)
+    end
+    
+  end
+  
+  describe 'compensating for the weird API params' do
+    
+    before do
+      @controller.instance_eval do
+        def public_compensate_for_cheat_gem_params
+          compensate_for_cheat_gem_params
+        end
+      end
+    end
+    
+    it 'should pull out sheet_title' do
+      @controller.params = { :sheet_title => 'pretzels' }
+      @controller.public_compensate_for_cheat_gem_params
+      @controller.params[:sheet][:title].should == 'pretzels'
+    end
+    
+    it 'should pull out sheet_body' do
+      @controller.params = { :sheet_body => 'salty goodness' }
+      @controller.public_compensate_for_cheat_gem_params
+      @controller.params[:sheet][:body].should == 'salty goodness'
+    end
+    
+    it 'should not overwrite regular params' do
+      @controller.params = {
+        :sheet => { :title => 'pinochle', :body => 'play some fun cards' },
+        :sheet_title => 'basketball',
+        :sheet_body => 'be the Harlem Globetrotters'
+      }
+      @controller.public_compensate_for_cheat_gem_params
+      @controller.params[:sheet][:title].should == 'pinochle'
+      @controller.params[:sheet][:body].should == 'play some fun cards'
+    end
+    
+  end
+  
 end

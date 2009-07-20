@@ -10,6 +10,9 @@ When /^I ask for the sheet titled "([^\"]*)" in YAML$/ do |title|
   get "/y/#{title}"
 end
 
+When /^I use the gem to create a new cheat with a title of "([^\"]*)"$/ do |title|
+  post "/w/", { 'sheet_title' => title, 'sheet_body' => '', 'from_gem' => true }
+end
 
 
 Then /^I should get a YAML list$/ do
@@ -30,4 +33,10 @@ end
 
 Then /^the YAML object titled "([^\"]*)" should contain "([^\"]*)"$/ do |title, body_part|
   YAML.load(response.body)[title].should match(/#{body_part}/)
+end
+
+Then /^I should receive a 201 Created for the "([^\"]*)" sheet$/ do |title|
+  sheet = Sheet.find_by_title(title)
+  response.code.to_i.should == 201
+  response.headers['Location'].should match(/\/sheets\/#{sheet.to_param}/)
 end

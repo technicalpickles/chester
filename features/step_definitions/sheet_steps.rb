@@ -22,3 +22,7 @@ Then /^I should not see "([^\"]*)" in the "([^\"]*)" sidebar$/ do |text, sidebar
     scope.should_not contain(text)
   end
 end
+
+Then /^a sheet titled "([^\"]*)" should exist$/ do |title|
+  Sheet.find_by_title(title).should_not be_nil
+end
