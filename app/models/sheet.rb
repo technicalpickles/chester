@@ -6,7 +6,7 @@ class Sheet < ActiveRecord::Base
   
   named_scope :limited, lambda { |n| { :limit => n } }
   
-  validates_presence_of :title, :body
+  validates_presence_of :title
   
   def self.fifteen_recent
     self.reverse_chronological.limited(15).to_a
