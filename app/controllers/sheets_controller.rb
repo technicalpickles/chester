@@ -1,8 +1,11 @@
 class SheetsController < ResourceController::Base
-  create.flash "Sheet created"
-  update.flash "Sheet updated"
+
   index.wants.yaml
   show.wants.yaml
+  create.success.flash "Sheet created"
+  create.failure.flash "Error creating sheet."
+  update.success.flash "Sheet updated"
+  update.failure.flash "Error updating sheet."
   
   def recent
     @recent_sheets = Sheet.fifteen_recent

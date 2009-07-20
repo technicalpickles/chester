@@ -2,6 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Sheet do
   
+  it { should validate_presence_of(:title) }
+  
+  it { should validate_presence_of(:body) }
+  
   describe 'alphabetically_by_title' do
 
     it 'should respond to alphabetically_by_title' do

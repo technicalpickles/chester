@@ -101,6 +101,7 @@ describe SheetsController do
       end
       
       it_should_behave_like 'a sheet finder'
+      
       it 'find the Sheet by title' do
         Sheet.should have_received(:find_by_title).with('some sheet')
       end
